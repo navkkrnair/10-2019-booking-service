@@ -1,0 +1,13 @@
+server:
+  port: 8060
+ams:
+  booking:
+    fareUrl: http://fare-service/fare
+spring:
+  application:
+    name: booking-service
+  cloud:
+    config:
+      uri:
+      - http://config-server:8888
+      
