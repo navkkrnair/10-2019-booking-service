@@ -7,7 +7,7 @@ FROM maven:3.6-jdk-8-alpine as build
 ENV APPROOT="/app"
 WORKDIR $APPROOT
 COPY --from=clone $APPROOT/10-2019-booking-service $APPROOT
-RUN mvn package
+RUN mvn package -DskipTests
 
 
 FROM openjdk:8-jre-alpine
