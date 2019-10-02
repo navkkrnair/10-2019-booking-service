@@ -35,7 +35,11 @@ public class BookingService
 	private final Sender              sender;
 	private final FareServiceProxy    proxy;
 
-	@HystrixCommand(fallbackMethod = "bookingFallBack")
+	@HystrixCommand(fallbackMethod = "bookingFallBack", commandProperties =
+	{ @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"),
+			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
+			@HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
+			@HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "5000") })
 	public BookingRecord book(BookingRecord record) throws BookingException
 	{
 		logger.info(">> Calling FareService");
